@@ -114,18 +114,17 @@ Get the maven-metadata.xml from a Nexus repository and deploy:
 - A configurations tarball tagged with the Maven qualifier $config_suffix in $config_root
 - A static files tarball tagged with the Maven qualifier $document_suffix in $document_root
 
-
-    puppi::project::maven { 'supersite':
-        source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
-        deploy_root      => '/usr/local/tomcat/supersite/webapps',
-        config_suffix    => 'cfg',
-        config_root      => '/srv/htdocs/supersite',
-        document_suffix  => 'css',
-        document_root    => '/srv/htdocs/supersite',
-        init_script      => 'tomcat',
-        report_email     => 'sysadmins@example42.com',
-        enable           => 'true',
-    }
+        puppi::project::maven { 'supersite':
+            source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
+            deploy_root      => '/usr/local/tomcat/supersite/webapps',
+            config_suffix    => 'cfg',
+            config_root      => '/srv/htdocs/supersite',
+            document_suffix  => 'css',
+            document_root    => '/srv/htdocs/supersite',
+            init_script      => 'tomcat',
+            report_email     => 'sysadmins@example42.com',
+            enable           => 'true',
+        }
 
 The same deploy Nexus repository with some more options:
 - A Source dir to be used to deploy static files when issuing "puppi init supersite"
@@ -133,24 +132,24 @@ The same deploy Nexus repository with some more options:
 - Some more elaborate rsync exclusion rules
 - A backup retention of 3 archives (instead of the default 5)
 
-    puppi::project::maven { 'supersite':
-        source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
-        deploy_root      => '/usr/local/tomcat/supersite/webapps',
-        config_suffix    => 'cfg',
-        config_root      => '/srv/htdocs/supersite',
-        document_suffix  => 'css',
-        document_root    => '/srv/htdocs/supersite',
-        document_init_source => 'rsync://backup.example42.com/initdir/supersite/',
-        firewall_src_ip  => $site ? {
-            dr      => '192.168.101.1/30',
-            main    => '192.168.1.1/30',
-        },
-        backup_rsync_options => '--exclude .snapshot --exclude /doc_root/autojs/*** --exclude /doc_root/autocss/*** --exclude /doc_root/xsl',
-        backup_retention => '3',
-        init_script      => 'tomcat',
-        report_email     => 'sysadmins@example42.com',
-        enable           => 'true',
-    }
+        puppi::project::maven { 'supersite':
+            source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
+            deploy_root      => '/usr/local/tomcat/supersite/webapps',
+            config_suffix    => 'cfg',
+            config_root      => '/srv/htdocs/supersite',
+            document_suffix  => 'css',
+            document_root    => '/srv/htdocs/supersite',
+            document_init_source => 'rsync://backup.example42.com/initdir/supersite/',
+            firewall_src_ip  => $site ? {
+                dr      => '192.168.101.1/30',
+                main    => '192.168.1.1/30',
+            },
+            backup_rsync_options => '--exclude .snapshot --exclude /doc_root/autojs/*** --exclude /doc_root/autocss/*** --exclude /doc_root/xsl',
+            backup_retention => '3',
+            init_script      => 'tomcat',
+            report_email     => 'sysadmins@example42.com',
+            enable           => 'true',
+        }
 
 An elaborated war deploy:
 - get from $source,
