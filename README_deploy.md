@@ -159,19 +159,19 @@ An elaborated war deploy:
 - stop and start tomcat-myapp but also monit and puppet
 - backup passing  $backup_rsync_options to rsync:
 
-    puppi::project::war { 'myapp':
-        source                  => 'http://repo.example42.com/deploy/prod/myapp.war',
-        deploy_root             => '/store/tomcat/myapp/webapps',
-        predeploy_customcommand => '/usr/local/bin/mychecks.sh',
-        predeploy_priority      => '39',
-        predeploy_user          => 'root',
-        backup_rsync_options    => '--exclude logs/',
-        user                    => 'pippo',
-        init_script             => 'tomcat-myapp',
-        deploy_root             => '/data/tomcat/myapp/webapps',
-        report_email            => 'sysadmins@example42.com',
-        disable_services        => 'monit puppet',
-    }
+        puppi::project::war { 'myapp':
+            source                  => 'http://repo.example42.com/deploy/prod/myapp.war',
+            deploy_root             => '/store/tomcat/myapp/webapps',
+            predeploy_customcommand => '/usr/local/bin/mychecks.sh',
+            predeploy_priority      => '39',
+            predeploy_user          => 'root',
+            backup_rsync_options    => '--exclude logs/',
+            user                    => 'pippo',
+            init_script             => 'tomcat-myapp',
+            deploy_root             => '/data/tomcat/myapp/webapps',
+            report_email            => 'sysadmins@example42.com',
+            disable_services        => 'monit puppet',
+        }
 
 An example of usage of the generic builder define to deploy a zip file, with an example custom
 post deploy command executed as root (as all puppi commands, if not specified otherwise)
